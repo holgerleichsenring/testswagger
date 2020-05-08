@@ -1,0 +1,2729 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "v1",
+    "title" : "Digitalization of Asset Counting Web Api"
+  },
+  "security" : [ {
+    "Bearer" : [ ],
+    "Basic" : [ ]
+  } ],
+  "paths" : {
+    "/api/appversions" : {
+      "get" : {
+        "tags" : [ "AppVersions" ],
+        "summary" : "Returns current iphone App Version.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "deprecated" : true
+      },
+      "post" : {
+        "tags" : [ "AppVersions" ],
+        "summary" : "set current iphone App Version.",
+        "operationId" : "Post",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "version",
+          "in" : "query",
+          "description" : "Update app current version to this value.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/v2/appversions" : {
+      "get" : {
+        "tags" : [ "AppVersionsControllerV2" ],
+        "summary" : "Returns current iphone App Version.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "AppVersionsControllerV2" ],
+        "summary" : "set current iphone App Version.",
+        "operationId" : "Post",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "version",
+          "in" : "query",
+          "description" : "Update app current version to this value.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/assetclasses" : {
+      "get" : {
+        "tags" : [ "AssetClasses" ],
+        "summary" : "Returns list of AssetClasses. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "description" : "AssetClass codes can be used to filter assets.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/assets" : {
+      "get" : {
+        "tags" : [ "Assets" ],
+        "summary" : "Returns list of Assets. This query must be paged. If page and pageSize are omitted,\r\nthere will be a HTTP 400 in return.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "sortingColumn",
+          "in" : "query",
+          "description" : "define the columns by which the list will be sorted. Find the list of possible columns via AssetSortingColumnsController",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Asset"
+              },
+              "uniqueItems" : false
+            }
+          }
+        },
+        "deprecated" : true
+      },
+      "post" : {
+        "tags" : [ "Assets" ],
+        "summary" : "Updates an Asset instance.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "asset",
+          "description" : "The asset object to be updated.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Asset"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/v2/assets" : {
+      "get" : {
+        "tags" : [ "AssetsControllerV2" ],
+        "summary" : "Returns list of Assets. This request must be paged.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "sortingColumn",
+          "in" : "query",
+          "description" : "define the columns by which the list will be sorted. Find the list of possible columns via AssetSortingColumnsController",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[AssetResource]"
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "AssetsControllerV2" ],
+        "summary" : "Updates an Asset instance.",
+        "operationId" : "Put",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "assetNumber",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "subNumber",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "companyCode",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "asset",
+          "description" : "The asset object to be updated.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AssetPutResource"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/AssetResource"
+            }
+          }
+        }
+      }
+    },
+    "/api/assets/search/bytextandproperties" : {
+      "post" : {
+        "tags" : [ "AssetsFullTextAndPropertySearch" ],
+        "summary" : "Allows for searching assets via specific search value and properties.\r\nThis query must be paged. Specify page and pageSize.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "assetFullTextAndPropertySearch",
+          "description" : "Query parameters for searching and paging",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AssetFullTextAndPropertySearch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[Asset]"
+            }
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/v2/assets/search/bytextandproperties" : {
+      "post" : {
+        "tags" : [ "AssetsFullTextAndPropertySearchControllerV2" ],
+        "summary" : "Allows for searching assets via specific search value and properties.\r\nThis query must be paged. Specify page and pageSize.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "assetFullTextAndPropertySearch",
+          "description" : "Query parameters for searching and paging",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AssetFullTextAndPropertySearch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[AssetResource]"
+            }
+          }
+        }
+      }
+    },
+    "/api/assets/sortingcolumns" : {
+      "get" : {
+        "tags" : [ "AssetsSortingColumns" ],
+        "summary" : "Gets the list of fields that inventory assets and assets can be sorted by",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/assetsupernumbers" : {
+      "get" : {
+        "tags" : [ "AssetSuperNumbers" ],
+        "summary" : "Returns list of AssetSuperNumbers. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/assets/search/bytags" : {
+      "post" : {
+        "tags" : [ "AssetTagSearch" ],
+        "summary" : "Allows for searching assets via tags",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "tagSearch",
+          "description" : "Query parameters for searching and paging",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/TagSearch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/TagSearchResult"
+            }
+          }
+        }
+      }
+    },
+    "/api/companycodes" : {
+      "get" : {
+        "tags" : [ "CompanyCodes" ],
+        "summary" : "Returns list of CompanyCodes. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/costcenters" : {
+      "get" : {
+        "tags" : [ "CostCenters" ],
+        "summary" : "Returns list of CostCenters. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/inventories" : {
+      "get" : {
+        "tags" : [ "Inventories" ],
+        "summary" : "Returns list of InventoryOrders. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/InventoryOrder"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Inventories" ],
+        "summary" : "Updates an InventoryOrder instance.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryOrder",
+          "description" : "The inventoryOrder object to be updated.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryOrder"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "deprecated" : true
+      },
+      "put" : {
+        "tags" : [ "Inventories" ],
+        "summary" : "Creates an InventoryOrder instance.",
+        "operationId" : "Put",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryOrderCreation",
+          "description" : "Defines the inventory order to be created and the inventory variant that is used to populate assets.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryOrderCreation"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/inventories/{id}" : {
+      "get" : {
+        "tags" : [ "Inventories" ],
+        "summary" : "Gets the InventoryOrder specified by id.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "the id of the inventoryOrder to be retrieved",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/InventoryOrder"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Inventories" ],
+        "summary" : "Deletes an InventoryOrder instance.",
+        "operationId" : "Delete",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The inventoryOrder id to be deleted.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/inventories/bulk" : {
+      "post" : {
+        "tags" : [ "Inventories" ],
+        "summary" : "Updates InventoryOrder instances.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryOrders",
+          "description" : "The inventoryOrders to be updated.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/InventoryOrder"
+            },
+            "uniqueItems" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "deprecated" : true
+      },
+      "delete" : {
+        "tags" : [ "Inventories" ],
+        "summary" : "Deletes InventoryOrder instances.",
+        "operationId" : "Delete",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "ids",
+          "in" : "query",
+          "description" : "The inventoryOrder ids to be deleted.",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "collectionFormat" : "multi",
+          "uniqueItems" : false
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/inventories/actions/sendemail" : {
+      "post" : {
+        "tags" : [ "InventoriesActionsSendEmail" ],
+        "summary" : "Completes the inventoryOrder if not already completed and sends an email to the supervisor of the inventory order.",
+        "operationId" : "Post",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "description" : "The id of the inventory order object to send an email for.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/inventories/actions/sendemail/bulk" : {
+      "post" : {
+        "tags" : [ "InventoriesActionsSendEmail" ],
+        "summary" : "Completes the inventoryOrders if not already completed and sends an email to the supervisors of the inventory orders.",
+        "operationId" : "Post",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "ids",
+          "in" : "query",
+          "description" : "The ids of the inventory orders to send an email for.",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "collectionFormat" : "multi",
+          "uniqueItems" : false
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/v2/inventories" : {
+      "post" : {
+        "tags" : [ "InventoriesControllerV2" ],
+        "summary" : "Creates an InventoryOrder instance.",
+        "operationId" : "Create",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryOrderCreation",
+          "description" : "Defines the inventory order to be created and the inventory variant that is used to populate assets.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryOrderCreation"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/InventoryOrder"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "InventoriesControllerV2" ],
+        "summary" : "Updates InventoryOrder instances.",
+        "operationId" : "Updates",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryOrders",
+          "description" : "The inventoryOrders to be updated.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/InventoryOrderPutResource"
+            },
+            "uniqueItems" : false
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/inventories/validation" : {
+      "post" : {
+        "tags" : [ "InventoriesValidation" ],
+        "summary" : "Returns if specified inventories are valid for email sending or completion",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryOrderIds",
+          "description" : "The inventoryOrder list to be validated.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "uniqueItems" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/InventoryValidation"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/inventoryassets" : {
+      "post" : {
+        "tags" : [ "InventoryAssets" ],
+        "summary" : "Updates an InventoryOrderAsset instance.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryOrderAsset",
+          "description" : "The inventoryOrderAsset object to be updated.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryOrderAsset"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/inventoryassets/bulk" : {
+      "post" : {
+        "tags" : [ "InventoryAssets" ],
+        "summary" : "Updates an InventoryOrderAsset instance.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryOrderAssets",
+          "description" : "The inventoryOrderAsset list to be updated.",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/InventoryOrderAsset"
+            },
+            "uniqueItems" : false
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "integer",
+                "format" : "int32"
+              },
+              "uniqueItems" : false
+            }
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/inventoryassets/bystatusdefault" : {
+      "get" : {
+        "tags" : [ "InventoryAssetsByStatusDefault" ],
+        "summary" : "Gets the InventoryOrderAsset with status default specified by id.\r\nThis query must be paged. If page and pageSize are omitted,\r\nthere will be a HTTP 400 in return.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "inventoryId",
+          "in" : "query",
+          "description" : "The inventoryOrderId to filter by Status default.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "sortingColumn",
+          "in" : "query",
+          "description" : "define the columns by which the list will be sorted. Find the list of possible columns via AssetSortingColumnsController",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[InventoryOrderAsset]"
+            }
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/inventoryassets/bystatusother" : {
+      "get" : {
+        "tags" : [ "InventoryAssetsByStatusOther" ],
+        "summary" : "Gets the InventoryOrderAssets with status different than default specified by id.\r\nThis query must be paged. If page and pageSize are omitted,\r\nthere will be a HTTP 400 in return.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "inventoryId",
+          "in" : "query",
+          "description" : "The inventoryOrderId to filter by Status active, missing or broken.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[InventoryOrderAsset]"
+            }
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/v2/inventories/{inventoryid}/assets/bystatusdefault" : {
+      "get" : {
+        "tags" : [ "InventoryAssetsControllerV2" ],
+        "summary" : "Gets the InventoryOrderAsset with status default specified by id.\r\nThis query must be paged. If page and pageSize are omitted,\r\nthere will be a HTTP 400 in return.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "inventoryid",
+          "in" : "path",
+          "description" : "The inventoryOrderId to filter by Status default.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "sortingColumn",
+          "in" : "query",
+          "description" : "define the columns by which the list will be sorted. Find the list of possible columns via AssetSortingColumnsController",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[InventoryOrderAssetResource]"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/inventories/{inventoryid}/assets/bystatusother" : {
+      "get" : {
+        "tags" : [ "InventoryAssetsControllerV2" ],
+        "summary" : "Gets the InventoryOrderAssets with status different than default specified by id.\r\nThis query must be paged. If page and pageSize are omitted,\r\nthere will be a HTTP 400 in return.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "inventoryid",
+          "in" : "path",
+          "description" : "The inventoryOrderId to filter by Status active, missing or broken.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[InventoryOrderAssetResource]"
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/inventories/{inventoryid}/assets" : {
+      "put" : {
+        "tags" : [ "InventoryAssetsControllerV2" ],
+        "summary" : "Update one or multiple InventoryOrderAsset instances.",
+        "operationId" : "Update",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "inventoryid",
+          "in" : "path",
+          "description" : "The affected InventoryOrderId.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "inventoryOrderAssets",
+          "description" : "Instances of InventoryOrderAssets to update",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/InventoryOrderAssetPutResource"
+            },
+            "uniqueItems" : false
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/v2/inventories/{inventoryid}/assetstatuses" : {
+      "put" : {
+        "tags" : [ "InventoryAssetsControllerV2" ],
+        "summary" : "Updates status for multiple assets of one InventoryOrder.",
+        "operationId" : "UpdateStatusAndChecked",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "inventoryid",
+          "in" : "path",
+          "description" : "The InventoryOrderId to be updated.",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "inventoryOrderAssetStatuses",
+          "description" : "Array of assets with status",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/InventoryOrderAssetStatusPutResource"
+            },
+            "uniqueItems" : false
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/inventoryassets/search/bytextandproperties/bystatusdefault" : {
+      "post" : {
+        "tags" : [ "InventoryAssetsFullTextAndPropertySearchByStatusDefault" ],
+        "summary" : "Allows for searching inventory assets via specific search value and properties.\r\nThis query must be paged. Specify page and pageSize.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryAssetFullTextAndPropertySearch",
+          "description" : "Query parameters for searching and paging",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryAssetFullTextAndPropertySearch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[InventoryOrderAsset]"
+            }
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/v2/inventoryassets/search/bytextandproperties/bystatusdefault" : {
+      "post" : {
+        "tags" : [ "InventoryAssetsFullTextAndPropertySearchByStatusDefaultControllerV2" ],
+        "summary" : "Allows for searching inventory assets via specific search value and properties.\r\nThis query must be paged. Specify page and pageSize.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryAssetFullTextAndPropertySearch",
+          "description" : "Query parameters for searching and paging",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryAssetFullTextAndPropertySearch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[InventoryOrderAssetResource]"
+            }
+          }
+        }
+      }
+    },
+    "/api/inventoryassets/search/bytextandproperties/bystatusother" : {
+      "post" : {
+        "tags" : [ "InventoryAssetsFullTextAndPropertySearchByStatusOther" ],
+        "summary" : "Allows for searching inventory assets via specific search value and properties.\r\nThis query must be paged. Specify page and pageSize.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryAssetFullTextAndPropertySearch",
+          "description" : "Query parameters for searching and paging",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryAssetFullTextAndPropertySearch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[InventoryOrderAsset]"
+            }
+          }
+        },
+        "deprecated" : true
+      }
+    },
+    "/api/v2/inventoryassets/search/bytextandproperties/bystatusother" : {
+      "post" : {
+        "tags" : [ "InventoryAssetsFullTextAndPropertySearchByStatusOtherControllerV2" ],
+        "summary" : "Allows for searching inventory assets via specific search value and properties.\r\nThis query must be paged. Specify page and pageSize.",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryAssetFullTextAndPropertySearch",
+          "description" : "Query parameters for searching and paging",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryAssetFullTextAndPropertySearch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PagedResult[InventoryOrderAssetResource]"
+            }
+          }
+        }
+      }
+    },
+    "/api/inventoryassets/statistic" : {
+      "get" : {
+        "tags" : [ "InventoryAssetStatistics" ],
+        "summary" : "Returns asset statistic for specified inventory id.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "inventoryId",
+          "in" : "query",
+          "description" : "inventory id to get the statistic for.",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/InventoryOrderStatistic"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "InventoryAssetStatistics" ],
+        "summary" : "Returns asset statistic for specified inventory id when searching or filtering data",
+        "operationId" : "Post",
+        "consumes" : [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "inventoryAssetFullTextAndPropertySearch",
+          "description" : "Query parameters for searching and paging",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/InventoryAssetFullTextAndPropertySearch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/InventoryOrderStatistic"
+            }
+          }
+        }
+      }
+    },
+    "/api/inventorynumbers" : {
+      "get" : {
+        "tags" : [ "InventoryNumbers" ],
+        "summary" : "Returns list of Asset InventoryNumbers. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/locations" : {
+      "get" : {
+        "tags" : [ "Locations" ],
+        "summary" : "Returns list of Locations. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/plants" : {
+      "get" : {
+        "tags" : [ "Plants" ],
+        "summary" : "Returns list of Plants. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/rooms" : {
+      "get" : {
+        "tags" : [ "Rooms" ],
+        "summary" : "Returns list of Rooms. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/sapinventoryassets/variants/update" : {
+      "get" : {
+        "tags" : [ "SapInventoryAssetVariantsUpdater" ],
+        "summary" : "Update the permissions after new import of assets or import of inventory variants.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "sourceSystem",
+          "in" : "query",
+          "description" : "the sap source system that caused the change in data",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/sapinventoryvariants/names" : {
+      "get" : {
+        "tags" : [ "SapInventoryVariantNames" ],
+        "summary" : "Returns list of Inventory Variants. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/sapinventoryvariants" : {
+      "get" : {
+        "tags" : [ "SapInventoryVariants" ],
+        "summary" : "Returns list of Inventory Variants. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SapInventoryVariant"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "SapInventoryVariants" ],
+        "summary" : "Gets the SapInventoryVariant specified by inventory variant name.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "sapInventoryVariantName",
+          "in" : "query",
+          "description" : "the name of the SapInventoryVariant to be retrieved",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SapInventoryVariant"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/sourcesystem" : {
+      "get" : {
+        "tags" : [ "SourceSystem" ],
+        "summary" : "Returns list of available source systems. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "SourceSystem" ],
+        "summary" : "Deletes a source system from all dependent tables.",
+        "operationId" : "Delete",
+        "consumes" : [ ],
+        "produces" : [ ],
+        "parameters" : [ {
+          "name" : "sourceSystem",
+          "in" : "query",
+          "description" : "The source system to be deleted",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/api/tags/validation" : {
+      "get" : {
+        "tags" : [ "TagsValidation" ],
+        "summary" : "Returns whether specified tag exists and is already in use or not.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "tag",
+          "in" : "query",
+          "description" : "define the tag that shall be validated",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/TagValidation"
+            }
+          }
+        }
+      }
+    },
+    "/api/typenames" : {
+      "get" : {
+        "tags" : [ "TypeNames" ],
+        "summary" : "Returns list of TypeNames. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    },
+    "/api/vendors" : {
+      "get" : {
+        "tags" : [ "Vendors" ],
+        "summary" : "Returns list of Vendors. This query can be paged. If page and pageSize are omitted,\r\nthe full list is going to be returned. When pageSize and page specified,\r\npageCount and currentPage will be returned on first call.",
+        "operationId" : "Get",
+        "consumes" : [ ],
+        "produces" : [ "text/plain", "application/json", "text/json" ],
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "description" : "define the page that this query will return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "define the number of items each page will contain if records are available",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              },
+              "uniqueItems" : false
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "Bearer" : {
+      "description" : "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+      "type" : "apiKey",
+      "name" : "Authorization",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "Asset" : {
+      "type" : "object",
+      "required" : [ "assetNumber", "companyCode", "subNumber" ],
+      "properties" : {
+        "tagId" : {
+          "type" : "string",
+          "maxLength" : 24
+        },
+        "secondTagId" : {
+          "type" : "string",
+          "maxLength" : 24
+        },
+        "isUntaggable" : {
+          "type" : "boolean"
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "lastModified" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "creator" : {
+          "type" : "string",
+          "maxLength" : 255
+        },
+        "comment" : {
+          "type" : "string",
+          "maxLength" : 254
+        },
+        "shareTags" : {
+          "type" : "boolean"
+        },
+        "sapAsset" : {
+          "$ref" : "#/definitions/SapInventoryAsset"
+        },
+        "assetNumber" : {
+          "type" : "string",
+          "maxLength" : 12
+        },
+        "subNumber" : {
+          "type" : "string",
+          "maxLength" : 12
+        },
+        "companyCode" : {
+          "type" : "string",
+          "maxLength" : 12
+        }
+      }
+    },
+    "SapInventoryAsset" : {
+      "type" : "object",
+      "required" : [ "assetNumber", "companyCode", "subNumber" ],
+      "properties" : {
+        "inventoryNumber" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "serialNumber" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "location" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "room" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "description" : {
+          "type" : "string",
+          "maxLength" : 50
+        },
+        "costCenter" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "capitalisationDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "lastInventoryDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "acquisitionValue" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "assetSuperNumber" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "vendor" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "typeName" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "plant" : {
+          "type" : "string",
+          "maxLength" : 25
+        },
+        "assetClass" : {
+          "type" : "string",
+          "maxLength" : 12
+        },
+        "quantity" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "unit" : {
+          "type" : "string",
+          "maxLength" : 12
+        },
+        "deactivatedOn" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "isDeactivated" : {
+          "type" : "boolean"
+        },
+        "companyCodeCurrency" : {
+          "type" : "string",
+          "maxLength" : 24
+        },
+        "assetNumber" : {
+          "type" : "string",
+          "maxLength" : 12
+        },
+        "subNumber" : {
+          "type" : "string",
+          "maxLength" : 12
+        },
+        "companyCode" : {
+          "type" : "string",
+          "maxLength" : 12
+        }
+      }
+    },
+    "PagedResult[AssetResource]" : {
+      "type" : "object",
+      "properties" : {
+        "results" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AssetResource"
+          }
+        },
+        "currentPage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rowCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "firstRowOnPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "readOnly" : true
+        },
+        "lastRowOnPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "readOnly" : true
+        }
+      }
+    },
+    "AssetResource" : {
+      "type" : "object",
+      "properties" : {
+        "assetNumber" : {
+          "type" : "string"
+        },
+        "subNumber" : {
+          "type" : "string"
+        },
+        "companyCode" : {
+          "type" : "string"
+        },
+        "tagId" : {
+          "type" : "string"
+        },
+        "secondTagId" : {
+          "type" : "string"
+        },
+        "isUntaggable" : {
+          "type" : "boolean"
+        },
+        "lastModified" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "creator" : {
+          "type" : "string"
+        },
+        "inventoryNumber" : {
+          "type" : "string"
+        },
+        "serialNumber" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "string"
+        },
+        "room" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "costCenter" : {
+          "type" : "string"
+        },
+        "capitalisationDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "lastInventoryDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "acquisitionValue" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "assetSuperNumber" : {
+          "type" : "string"
+        },
+        "vendor" : {
+          "type" : "string"
+        },
+        "typeName" : {
+          "type" : "string"
+        },
+        "plant" : {
+          "type" : "string"
+        },
+        "assetClass" : {
+          "type" : "string"
+        },
+        "quantity" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "unit" : {
+          "type" : "string"
+        },
+        "deactivatedOn" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "isDeactivated" : {
+          "type" : "boolean"
+        },
+        "companyCodeCurrency" : {
+          "type" : "string"
+        },
+        "comment" : {
+          "type" : "string"
+        },
+        "shareTags" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "AssetPutResource" : {
+      "type" : "object",
+      "properties" : {
+        "tagId" : {
+          "type" : "string"
+        },
+        "secondTagId" : {
+          "type" : "string"
+        },
+        "isUntaggable" : {
+          "type" : "boolean"
+        },
+        "comment" : {
+          "type" : "string"
+        },
+        "shareTags" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "AssetFullTextAndPropertySearch" : {
+      "type" : "object",
+      "required" : [ "page", "pageSize" ],
+      "properties" : {
+        "searchString" : {
+          "type" : "string"
+        },
+        "sortingColumn" : {
+          "type" : "string"
+        },
+        "tagId" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "assetNumber" : {
+          "type" : "string"
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "assetClass" : {
+          "type" : "string"
+        },
+        "lastModified" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "creator" : {
+          "type" : "string"
+        },
+        "subNumber" : {
+          "type" : "string"
+        },
+        "companyCode" : {
+          "type" : "string"
+        },
+        "inventoryNumber" : {
+          "type" : "string"
+        },
+        "serialNumber" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "string"
+        },
+        "room" : {
+          "type" : "string"
+        },
+        "costCenter" : {
+          "type" : "string"
+        },
+        "capitalisationDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "lastInventoryDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "acquisitionValue" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "assetSuperNumber" : {
+          "type" : "string"
+        },
+        "vendor" : {
+          "type" : "string"
+        },
+        "typeName" : {
+          "type" : "string"
+        },
+        "plant" : {
+          "type" : "string"
+        },
+        "quantity" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "unit" : {
+          "type" : "string"
+        },
+        "untaggable" : {
+          "type" : "boolean"
+        },
+        "untagged" : {
+          "type" : "boolean"
+        },
+        "page" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PagedResult[Asset]" : {
+      "type" : "object",
+      "properties" : {
+        "results" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Asset"
+          }
+        },
+        "currentPage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rowCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "firstRowOnPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "readOnly" : true
+        },
+        "lastRowOnPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "readOnly" : true
+        }
+      }
+    },
+    "TagSearch" : {
+      "type" : "object",
+      "properties" : {
+        "tags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "inventoryOrderId" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "TagSearchResult" : {
+      "type" : "object",
+      "properties" : {
+        "validAssets" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TagSearchAsset"
+          }
+        },
+        "invalidAssets" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TagSearchAsset"
+          }
+        },
+        "remainingTags" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TagValidation"
+          }
+        }
+      }
+    },
+    "TagSearchAsset" : {
+      "type" : "object",
+      "properties" : {
+        "inventoryVariantName" : {
+          "type" : "string"
+        },
+        "tagId" : {
+          "type" : "string"
+        },
+        "assetNumber" : {
+          "type" : "string"
+        },
+        "subNumber" : {
+          "type" : "string"
+        },
+        "companyCode" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TagValidation" : {
+      "type" : "object",
+      "properties" : {
+        "tag" : {
+          "type" : "string"
+        },
+        "inUse" : {
+          "type" : "boolean"
+        },
+        "isValid" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "InventoryOrder" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "description" : {
+          "type" : "string",
+          "maxLength" : 255
+        },
+        "inventoryVariantName" : {
+          "type" : "string",
+          "maxLength" : 255
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "reportDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "creator" : {
+          "type" : "string",
+          "maxLength" : 255
+        },
+        "assignees" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/InventoryOrderAssignee"
+          }
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "enum" : [ 0, 1, 2, 3, 4 ]
+        },
+        "hasOnlyUntaggedAssets" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "InventoryOrderAssignee" : {
+      "type" : "object",
+      "required" : [ "assignee", "id", "inventoryOrderId" ],
+      "properties" : {
+        "inventoryOrderId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "id" : {
+          "type" : "string",
+          "maxLength" : 24
+        },
+        "assignee" : {
+          "type" : "string",
+          "maxLength" : 255
+        }
+      }
+    },
+    "InventoryOrderCreation" : {
+      "type" : "object",
+      "properties" : {
+        "hasOnlyUntaggedAssets" : {
+          "type" : "boolean"
+        },
+        "inventoryVariantName" : {
+          "type" : "string"
+        },
+        "reportDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
+    },
+    "InventoryOrderPutResource" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "enum" : [ 0, 1, 2, 3, 4 ]
+        }
+      }
+    },
+    "InventoryValidation" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "valid" : {
+          "type" : "boolean"
+        },
+        "remaining" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "InventoryOrderAsset" : {
+      "type" : "object",
+      "required" : [ "assetNumber", "companyCode", "inventoryOrderId", "subNumber" ],
+      "properties" : {
+        "inventoryOrderId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "checked" : {
+          "type" : "boolean"
+        },
+        "lastModified" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "changedBy" : {
+          "type" : "string",
+          "maxLength" : 254
+        },
+        "commentOther" : {
+          "type" : "string",
+          "maxLength" : 254
+        },
+        "commentCostCenter" : {
+          "type" : "string",
+          "maxLength" : 254
+        },
+        "commentPlant" : {
+          "type" : "string",
+          "maxLength" : 254
+        },
+        "commentLocation" : {
+          "type" : "string",
+          "maxLength" : 254
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "enum" : [ 0, 1, 2, 3, 4, 5 ]
+        },
+        "asset" : {
+          "$ref" : "#/definitions/Asset"
+        },
+        "assetNumber" : {
+          "type" : "string",
+          "maxLength" : 12
+        },
+        "subNumber" : {
+          "type" : "string",
+          "maxLength" : 12
+        },
+        "companyCode" : {
+          "type" : "string",
+          "maxLength" : 12
+        }
+      }
+    },
+    "PagedResult[InventoryOrderAsset]" : {
+      "type" : "object",
+      "properties" : {
+        "results" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/InventoryOrderAsset"
+          }
+        },
+        "currentPage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rowCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "firstRowOnPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "readOnly" : true
+        },
+        "lastRowOnPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "readOnly" : true
+        }
+      }
+    },
+    "PagedResult[InventoryOrderAssetResource]" : {
+      "type" : "object",
+      "properties" : {
+        "results" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/InventoryOrderAssetResource"
+          }
+        },
+        "currentPage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rowCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "firstRowOnPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "readOnly" : true
+        },
+        "lastRowOnPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "readOnly" : true
+        }
+      }
+    },
+    "InventoryOrderAssetResource" : {
+      "type" : "object",
+      "properties" : {
+        "inventoryOrderId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "enum" : [ 0, 1, 2, 3, 4, 5 ]
+        },
+        "checked" : {
+          "type" : "boolean"
+        },
+        "commentOther" : {
+          "type" : "string"
+        },
+        "commentCostCenter" : {
+          "type" : "string"
+        },
+        "commentPlant" : {
+          "type" : "string"
+        },
+        "commentLocation" : {
+          "type" : "string"
+        },
+        "asset" : {
+          "$ref" : "#/definitions/AssetResource"
+        }
+      }
+    },
+    "InventoryOrderAssetPutResource" : {
+      "type" : "object",
+      "properties" : {
+        "assetNumber" : {
+          "type" : "string"
+        },
+        "subNumber" : {
+          "type" : "string"
+        },
+        "companyCode" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "enum" : [ 0, 1, 2, 3, 4, 5 ]
+        },
+        "checked" : {
+          "type" : "boolean"
+        },
+        "commentCostCenter" : {
+          "type" : "string"
+        },
+        "commentLocation" : {
+          "type" : "string"
+        },
+        "commentOther" : {
+          "type" : "string"
+        },
+        "commentPlant" : {
+          "type" : "string"
+        }
+      }
+    },
+    "InventoryOrderAssetStatusPutResource" : {
+      "type" : "object",
+      "properties" : {
+        "assetNumber" : {
+          "type" : "string"
+        },
+        "subNumber" : {
+          "type" : "string"
+        },
+        "companyCode" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "enum" : [ 0, 1, 2, 3, 4, 5 ]
+        },
+        "checked" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "InventoryAssetFullTextAndPropertySearch" : {
+      "type" : "object",
+      "required" : [ "inventoryOrderId", "page", "pageSize" ],
+      "properties" : {
+        "searchString" : {
+          "type" : "string"
+        },
+        "inventoryOrderId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "enum" : [ 0, 1, 2, 3, 4, 5 ]
+        },
+        "sortingColumn" : {
+          "type" : "string"
+        },
+        "tagId" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "assetNumber" : {
+          "type" : "string"
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "assetClass" : {
+          "type" : "string"
+        },
+        "lastModified" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "created" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "creator" : {
+          "type" : "string"
+        },
+        "subNumber" : {
+          "type" : "string"
+        },
+        "companyCode" : {
+          "type" : "string"
+        },
+        "inventoryNumber" : {
+          "type" : "string"
+        },
+        "serialNumber" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "string"
+        },
+        "room" : {
+          "type" : "string"
+        },
+        "costCenter" : {
+          "type" : "string"
+        },
+        "capitalisationDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "lastInventoryDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "acquisitionValue" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "assetSuperNumber" : {
+          "type" : "string"
+        },
+        "vendor" : {
+          "type" : "string"
+        },
+        "typeName" : {
+          "type" : "string"
+        },
+        "plant" : {
+          "type" : "string"
+        },
+        "quantity" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "unit" : {
+          "type" : "string"
+        },
+        "untaggable" : {
+          "type" : "boolean"
+        },
+        "untagged" : {
+          "type" : "boolean"
+        },
+        "page" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pageSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "InventoryOrderStatistic" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "total" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "default" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "missed" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "broken" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "active" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "remaining" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "research" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "transferred" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "SapInventoryVariant" : {
+      "type" : "object",
+      "properties" : {
+        "inventoryVariantName" : {
+          "type" : "string",
+          "maxLength" : 255
+        },
+        "columnName" : {
+          "type" : "string",
+          "maxLength" : 50
+        },
+        "value" : {
+          "type" : "string",
+          "maxLength" : 4000
+        },
+        "valueRange" : {
+          "type" : "string",
+          "maxLength" : 4000
+        },
+        "operator" : {
+          "type" : "string",
+          "maxLength" : 2
+        },
+        "includeExclude" : {
+          "type" : "string",
+          "maxLength" : 1
+        },
+        "sourceSystem" : {
+          "type" : "string",
+          "maxLength" : 3
+        }
+      }
+    }
+  }
+}
