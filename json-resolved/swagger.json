@@ -12,7 +12,7 @@
     "/api/appversions" : {
       "get" : {
         "tags" : [ "AppVersions" ],
-        "summary" : "Returns current iphone App Version.",
+        "summary" : "Returns current iphone App Version. Test this",
         "operationId" : "Get",
         "consumes" : [ ],
         "produces" : [ "text/plain", "application/json", "text/json" ],
